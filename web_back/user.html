@@ -24,19 +24,19 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">用户名称：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control username" id="inputEmail3" value="李思思">
+                        <input type="text" class="form-control username" id="inputEmail3" value="李思思" name="username">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">昵称：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control nickname" id="inputEmail3" value="思思">
+                        <input type="text" class="form-control nickname" id="inputEmail3" value="思思" name="nickname">
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">邮箱：</label>
                     <div class="col-sm-4">
-                        <input type="text" class="form-control email" id="inputEmail3" value="lisisi@126.com">
+                        <input type="text" class="form-control email" id="inputEmail3" value="lisisi@126.com" name="email">
                     </div>
                 </div>
 
@@ -44,14 +44,14 @@
                     <label for="inputPassword3" class="col-sm-2 control-label">用户图标：</label>
                     <div class="col-sm-10">
                         <img src="images/2.jpg" alt="" class="user_pic">
-                        <input type="file" id="exampleInputFile">
+                        <input type="file" id="exampleInputFile" name="user_pic">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">密码：</label>
                     <div class="col-sm-4">
-                        <input type="password--" class="form-control user_password" id="inputEmail3" value="12345678">
+                        <input type="password--" class="form-control user_password" id="inputEmail3" value="12345678" name="password">
                     </div>
                 </div>
 
@@ -86,7 +86,42 @@
                 
             }
         });
-        
+
+        //图片预览
+        $('#exampleInputFile').on('change',function(){
+            var icon = this.files[0] //获取到这个文件选择按钮选中的第一个文件.
+            var url = URL.createObjectURL(icon); //获取到一个url
+            $('.user_pic').attr('src',url);
+        });
+
+        //点击修改按钮保存事件
+        $('.btn-success').on('click',function(e){
+            e.preventDefault();
+
+            //获取表单元素
+            var formData = new FormData($('form')[0]);
+   
+            console.log(formData.get('username'));
+            console.log(formData.get('nickname'));
+            console.log(formData.get('email'));
+            console.log(formData.get('user_pic'));
+            console.log(formData.get('password'));
+
+            //发送ajax
+            $.ajax({
+                type:'post',
+                url:'http://localhost:8000/admin/userinfo_edit',
+                data:formData,
+                contentType:false,
+                processData:false,
+                success:function(backData){
+                    console.log(backData);
+                    
+                }
+            });
+        })
+
+
 
 
 
