@@ -18,7 +18,7 @@
         <a href="#" class="logo"><img src="images/logo02.png" alt="logo"></a>
         <div class="user_info">
             <img src="images/2.jpg" alt="person" class="userIcon">
-            <span id="userName">欢迎&nbsp;&nbsp;</span>
+            <span class="gly">欢迎&nbsp;&nbsp;李思思</span>
             <b>管理员</b>
         </div>
         <div class="menu">
@@ -135,8 +135,7 @@
                 success:function(backData){
                     console.log(backData);
                     if (backData.code == 200){
-                        // $('#userName').text('欢迎 ' +backData.data.username);
-                        document.getElementById('userName').innerText += backData.data.username;
+                        $('.gly').html('欢迎&nbsp;&nbsp;' + backData.data.username);
                         $('.userIcon').attr('src',backData.data.user_pic);
 
                     }
